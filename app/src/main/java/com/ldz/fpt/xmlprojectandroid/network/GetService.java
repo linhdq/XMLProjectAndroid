@@ -84,4 +84,12 @@ public interface GetService {
     @POST(API.DELETE_ACCOUNT_CLIENT)
     @Headers({API.HEADERS})
     Call<ResponseBody> callDeleteAccountClient(@Body RequestBody data);
+
+    @POST(API.CREATE_ACCOUNT_FOR_ADMIN)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callCreateAccountForAdmin (@Body RequestBody data);
+
+    @POST(API.CREATE_ACCOUNT_FOR_CLIENT)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callCreateAccountForClient (@Body RequestBody data);
 }
