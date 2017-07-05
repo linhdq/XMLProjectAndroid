@@ -46,8 +46,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected Button btnProfile;
     @BindView(R.id.list_drawer)
     protected ListView listViewDrawer;
-    @BindView(R.id.floating_button_add_account)
-    protected FloatingActionButton btnAddAccount;
     private Toast toast;
     //database
     private DBContext dbContext;
@@ -182,7 +180,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addListener() {
         btnProfile.setOnClickListener(this);
-        btnAddAccount.setOnClickListener(this);
         listViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -269,9 +266,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
-            case R.id.floating_button_add_account:
-
                 break;
             default:
                 break;

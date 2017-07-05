@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.ldz.fpt.xmlprojectandroid.R;
+import com.ldz.fpt.xmlprojectandroid.acitivity.AddAccountDialogActivity;
 import com.ldz.fpt.xmlprojectandroid.acitivity.HomeActivity;
 import com.ldz.fpt.xmlprojectandroid.adapter.ListUserAdapter;
 import com.ldz.fpt.xmlprojectandroid.database.DBContext;
@@ -54,7 +55,7 @@ import retrofit2.Response;
  * Created by linhdq on 7/4/17.
  */
 
-public class SuperAdminHomeFragment extends Fragment {
+public class SuperAdminHomeFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = SuperAdminHomeFragment.class.getSimpleName();
     //view
     @BindView(R.id.recycler_view)
@@ -63,6 +64,8 @@ public class SuperAdminHomeFragment extends Fragment {
     protected ViewSwitcher viewSwitcher;
     @BindView(R.id.txt_date)
     protected TextView txtDate;
+    @BindView(R.id.floating_button_add_account)
+    protected FloatingActionButton btnAddAccount;
     //
     private Context context;
     //
@@ -127,6 +130,8 @@ public class SuperAdminHomeFragment extends Fragment {
         //
         Date date = new Date();
         txtDate.setText(String.format("Ngày: %s", dateFormat.format(date)));
+        //
+        btnAddAccount.setOnClickListener(this);
     }
 
     private void configRecyclerView() {
@@ -293,5 +298,17 @@ public class SuperAdminHomeFragment extends Fragment {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.floating_button_add_account:
+                Intent dialogIntent = new Intent(context, AddAccountDialogActivity.class);
+                startActivity(dialogIntent);
+                break;
+            default:
+                break;
+        }
     }
 }

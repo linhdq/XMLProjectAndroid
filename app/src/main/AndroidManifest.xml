@@ -12,7 +12,6 @@
         android:roundIcon="@drawable/loto_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".acitivity.HomeActivity"
             android:screenOrientation="portrait"
@@ -30,7 +29,10 @@
         <activity android:name=".acitivity.DetailDataActivity" />
         <activity android:name=".acitivity.ProfileActivity" />
         <activity android:name=".acitivity.SettingActivity" />
-        <activity android:name=".acitivity.ReportActivity"></activity>
+        <activity android:name=".acitivity.ReportActivity" />
+        <activity android:name=".acitivity.AddAccountDialogActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:label="Add Account"></activity>
     </application>
 
 </manifest>
