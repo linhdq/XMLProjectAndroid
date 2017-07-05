@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,6 +160,7 @@ public class SuperAdminHomeFragment extends Fragment {
                         listUser.clear();
                         listUser.addAll(xmlParser.getAllAdmins(xml));
                         listUserAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "onResponse: " + listUser.size());
                         for (User u : listUser) {
                             if (dbContext.checkUserIsExists(u.getUsername()) != null) {
                                 dbContext.updateUser(u);
