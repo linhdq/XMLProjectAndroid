@@ -17,10 +17,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.ldz.fpt.xmlprojectandroid.R;
 import com.ldz.fpt.xmlprojectandroid.acitivity.HomeActivity;
@@ -36,7 +37,9 @@ import com.ldz.fpt.xmlprojectandroid.util.Constant;
 import com.ldz.fpt.xmlprojectandroid.xml_parser.XMLParser;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +59,10 @@ public class SuperAdminHomeFragment extends Fragment {
     //view
     @BindView(R.id.recycler_view)
     protected RecyclerView recyclerView;
+    @BindView(R.id.view_switcher_update)
+    protected ViewSwitcher viewSwitcher;
+    @BindView(R.id.txt_date)
+    protected TextView txtDate;
     //
     private Context context;
     //
@@ -77,6 +84,8 @@ public class SuperAdminHomeFragment extends Fragment {
     //
     private Paint paint;
     private AlertDialog.Builder alertDialog;
+    //
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Nullable
     @Override
@@ -96,6 +105,7 @@ public class SuperAdminHomeFragment extends Fragment {
         }
         if (isFirst && user != null) {
             sendForm = new XMLLoginSendForm(user.getUsername(), user.getPassword());
+            viewSwitcher.setDisplayedChild(1);
             getAllAdmins(sendForm.getRequestBody());
             isFirst = false;
         }
@@ -114,6 +124,9 @@ public class SuperAdminHomeFragment extends Fragment {
         listUser = new ArrayList<>();
         //
         paint = new Paint();
+        //
+        Date date = new Date();
+        txtDate.setText(String.format("Ngày: %s", dateFormat.format(date)));
     }
 
     private void configRecyclerView() {
@@ -122,6 +135,11 @@ public class SuperAdminHomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(listUserAdapter);
         initSwipe();
+    }
+
+    public void refreshData() {
+        viewSwitcher.setDisplayedChild(1);
+        getAllAdmins(sendForm.getRequestBody());
     }
 
     private void getAllAdmins(RequestBody data) {
@@ -137,21 +155,35 @@ public class SuperAdminHomeFragment extends Fragment {
                 if (response.code() == Constant.OK_STATUS) {
                     try {
                         String xml = response.body().string();
+                        listUser.clear();
                         listUser.addAll(xmlParser.getAllAdmins(xml));
                         listUserAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "onResponse: " + listUser.size());
-                        Log.d(TAG, "onResponse: " + listUser.get(0).getFullName());
+                        for (User u : listUser) {
+                            if (dbContext.checkUserIsExists(u.getUsername()) != null) {
+                                dbContext.updateUser(u);
+                            } else {
+                                dbContext.addUserModel(u);
+                            }
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     homeActivity.showToast("Login failed! Please try again.");
+                    listUser.clear();
+                    listUser.addAll(dbContext.getAllAdmins());
+                    listUserAdapter.notifyDataSetChanged();
                 }
+                viewSwitcher.setDisplayedChild(0);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 homeActivity.showToast("Login failed! Please check your connection.");
+                listUser.clear();
+                listUser.addAll(dbContext.getAllAdmins());
+                listUserAdapter.notifyDataSetChanged();
+                viewSwitcher.setDisplayedChild(0);
             }
         });
     }

@@ -179,8 +179,23 @@ public class DBContext extends SQLiteOpenHelper {
             model.setRole(cursor.getInt(4));
             model.setIsCurrent(cursor.getInt(5));
         }
-        if (model != null) {
-            Log.d("hello", "checkLoginSuccess: " + model.getFullName());
+        return model;
+    }
+
+    public User checkUserIsExists(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlQuery = "Select * from " + TABLE_USER + " where " + USERNAME + " = '" + username + "'";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        User model = null;
+        if (cursor != null && cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            model = new User();
+            model.setUsername(cursor.getString(0));
+            model.setPassword(cursor.getString(1));
+            model.setFullName(cursor.getString(2));
+            model.setPhoneNumber(cursor.getString(3));
+            model.setRole(cursor.getInt(4));
+            model.setIsCurrent(cursor.getInt(5));
         }
         return model;
     }
@@ -192,10 +207,32 @@ public class DBContext extends SQLiteOpenHelper {
         values.put(PASSWORD, model.getPassword());
         values.put(FULLNAME, model.getFullName());
         values.put(PHONENUMBER, model.getPhoneNumber());
+        values.put(ROLE, model.getRole());
 
         // updating row
         return db.update(TABLE_USER, values, USERNAME + " = ?",
                 new String[]{String.valueOf(model.getUsername())});
+    }
+
+    public List<User> getAllAdmins() {
+        List<User> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlQuery = "Select * from " + TABLE_USER + " where " + ROLE + " = 1";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                User model = new User();
+                model.setUsername(cursor.getString(0));
+                model.setPassword(cursor.getString(1));
+                model.setFullName(cursor.getString(2));
+                model.setPhoneNumber(cursor.getString(3));
+                model.setRole(cursor.getInt(4));
+
+                // Adding model to list
+                list.add(model);
+            } while (cursor.moveToNext());
+        }
+        return list;
     }
 
     /**

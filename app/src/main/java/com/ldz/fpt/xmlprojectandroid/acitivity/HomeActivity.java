@@ -129,6 +129,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_update) {
             if (user.getRole() == 1) {
                 adminHomeFragment.updateData();
+            } else if (user.getRole() == 0) {
+                superAdminHomeFragment.refreshData();
             }
             return true;
         }
