@@ -162,7 +162,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         configFont();
         //
         drawerItemModelList = new ArrayList<>();
-        drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_report, "Thống kê"));
+        if (user.getRole() != 0) {
+            drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_report, "Thống kê"));
+        }
         if (user.getRole() == 1) {
             drawerItemModelList.add(new DrawerItemModel(R.mipmap.ic_setting, "Thiết lập"));
             drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_perm_contact_calendar_black_48dp, "Danh sách"));
@@ -186,9 +188,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        Intent intentReport = new Intent(HomeActivity.this, ReportActivity.class);
-                        startActivity(intentReport);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        if(user.getRole()!=0) {
+                            Intent intentReport = new Intent(HomeActivity.this, ReportActivity.class);
+                            startActivity(intentReport);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }else{
+                            dbContext.deleteUserModel();
+                            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
                         break;
                     case 1:
                         if (user.getRole() == 1) {

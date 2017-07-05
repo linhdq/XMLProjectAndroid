@@ -13,12 +13,10 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,12 +143,7 @@ public class SuperAdminHomeFragment extends Fragment {
     }
 
     private void getAllAdmins(RequestBody data) {
-        Call<ResponseBody> call;
-        if (user.getRole() == Constant.SUPER_ADMIN) {
-            call = getService.callXmlGetAllAdmins(data);
-        } else {
-            call = getService.callXmlGetAllClients(data);
-        }
+        Call<ResponseBody> call = getService.callXmlGetAllAdmins(data);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -160,7 +153,6 @@ public class SuperAdminHomeFragment extends Fragment {
                         listUser.clear();
                         listUser.addAll(xmlParser.getAllAdmins(xml));
                         listUserAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "onResponse: " + listUser.size());
                         for (User u : listUser) {
                             if (dbContext.checkUserIsExists(u.getUsername()) != null) {
                                 dbContext.updateUser(u);
@@ -172,7 +164,7 @@ public class SuperAdminHomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
-                    homeActivity.showToast("Login failed! Please try again.");
+                    homeActivity.showToast("Lỗi kết nối!");
                     listUser.clear();
                     listUser.addAll(dbContext.getAllAdmins());
                     listUserAdapter.notifyDataSetChanged();
@@ -182,7 +174,7 @@ public class SuperAdminHomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                homeActivity.showToast("Login failed! Please check your connection.");
+                homeActivity.showToast("Lỗi kết nối!");
                 listUser.clear();
                 listUser.addAll(dbContext.getAllAdmins());
                 listUserAdapter.notifyDataSetChanged();
@@ -251,18 +243,14 @@ public class SuperAdminHomeFragment extends Fragment {
 
     private void reloadData(ResponseModel responseModel, int position) {
         if (responseModel.isStatus()) {
-            listUserAdapter.removeItem(position);
+            dbContext.deleteUserByUsername(listUser.get(position).getUsername());
+            getAllAdmins(sendForm.getRequestBody());
         }
         homeActivity.showToast(responseModel.getMessage());
     }
 
     private void deleteAccountService(RequestBody requestBody, final int position) {
-        Call<ResponseBody> call;
-        if (user.getRole() == Constant.SUPER_ADMIN) {
-            call = getService.callDeleteAccountAdmin(requestBody);
-        } else {
-            call = getService.callDeleteAccountClient(requestBody);
-        }
+        Call<ResponseBody> call = getService.callDeleteAccountAdmin(requestBody);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -275,30 +263,30 @@ public class SuperAdminHomeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
-                    homeActivity.showToast("Something went wrong! Please try again later.");
+                    homeActivity.showToast("Đã xảy ra lỗi! Vui lòng thử lại sau.");
                     configRecyclerView();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                homeActivity.showToast("Login failed! Please check your connection.");
+                homeActivity.showToast("Đã xảy ra lỗi! Vui lòng thử lại sau.");
             }
         });
     }
 
     private void initDialog(final String userNameRequest, final String userNameDelete, final int position) {
         alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("Delete Account")
-                .setMessage("Are you sure you want to delete this account?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialog.setTitle("Xác nhận")
+                .setMessage("Xoá tài khoản này khỏi hệ thống?")
+                .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         xmlDeleteAccount = new XmlDeleteAccount(userNameRequest, userNameDelete);
                         deleteAccountService(xmlDeleteAccount.getRequestBody(), position);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         configRecyclerView();

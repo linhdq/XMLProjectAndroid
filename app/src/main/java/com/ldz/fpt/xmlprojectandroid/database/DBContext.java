@@ -164,6 +164,12 @@ public class DBContext extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteUserByUsername(String username) {
+        String sql = "delete from " + TABLE_USER + " where " + USERNAME + " = '" + username + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+    }
+
     public User checkLoginSuccess() {
         SQLiteDatabase db = this.getReadableDatabase();
         String sqlQuery = "Select * from " + TABLE_USER + " where " + IS_CURRENT + " = 1";
