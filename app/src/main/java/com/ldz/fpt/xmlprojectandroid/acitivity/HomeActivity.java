@@ -131,6 +131,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_update) {
             if (user.getRole() == 1) {
                 adminHomeFragment.updateData();
+                superAdminHomeFragment.refreshData();
             } else if (user.getRole() == 0) {
                 superAdminHomeFragment.refreshData();
             }
@@ -165,7 +166,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (user.getRole() == 1) {
             drawerItemModelList.add(new DrawerItemModel(R.mipmap.ic_setting, "Thiết lập"));
-            drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_perm_contact_calendar_black_48dp, "Danh sách"));
+            drawerItemModelList.add(new DrawerItemModel(R.mipmap.ic_client, "Quản lý Client"));
         }
         drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_signout, "Đăng xuất"));
         listDrawerApdapter = new ListDrawerApdapter(this, drawerItemModelList);
@@ -212,7 +213,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 2:
                         if (user.getRole() == 1) {
-                            openFragment(superAdminHomeFragment, false, false);
+                            openFragment(superAdminHomeFragment, true, true);
                             drawerLayout.closeDrawers();
                         } else {
                             dbContext.deleteUserModel();
@@ -270,5 +271,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 }

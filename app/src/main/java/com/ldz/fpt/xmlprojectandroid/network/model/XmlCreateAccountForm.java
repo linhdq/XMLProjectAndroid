@@ -52,7 +52,7 @@ public class XmlCreateAccountForm {
             serializer.startTag("", "phoneNumber");
             serializer.text(this.phoneNumber);
             serializer.endTag("", "phoneNumber");
-            serializer.endTag("", "requestByUser");
+            serializer.endTag("", "NewUser");
             serializer.endDocument();
             return writer.toString();
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.ldz.fpt.xmlprojectandroid.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +22,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.ldz.fpt.xmlprojectandroid.R;
-import com.ldz.fpt.xmlprojectandroid.acitivity.AddAccountDialogActivity;
 import com.ldz.fpt.xmlprojectandroid.acitivity.HomeActivity;
 import com.ldz.fpt.xmlprojectandroid.adapter.ListUserAdapter;
 import com.ldz.fpt.xmlprojectandroid.database.DBContext;
@@ -34,6 +38,7 @@ import com.ldz.fpt.xmlprojectandroid.model.User;
 import com.ldz.fpt.xmlprojectandroid.network.GetService;
 import com.ldz.fpt.xmlprojectandroid.network.ServiceFactory;
 import com.ldz.fpt.xmlprojectandroid.network.model.XMLLoginSendForm;
+import com.ldz.fpt.xmlprojectandroid.network.model.XmlCreateAccountForm;
 import com.ldz.fpt.xmlprojectandroid.network.model.XmlDeleteAccount;
 import com.ldz.fpt.xmlprojectandroid.util.Constant;
 import com.ldz.fpt.xmlprojectandroid.xml_parser.XMLParser;
@@ -56,7 +61,7 @@ import retrofit2.Response;
  * Created by linhdq on 7/4/17.
  */
 
-public class SuperAdminHomeFragment extends Fragment implements View.OnClickListener{
+public class SuperAdminHomeFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = SuperAdminHomeFragment.class.getSimpleName();
     //view
     @BindView(R.id.recycler_view)
@@ -67,6 +72,19 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
     protected TextView txtDate;
     @BindView(R.id.floating_button_add_account)
     protected FloatingActionButton btnAddAccount;
+    @BindView(R.id.txt_title)
+    protected TextView txtTitle;
+
+    private TextView txtDialogTitle;
+    private EditText edtUsername;
+    private EditText edtFullName;
+    private EditText edtPhoneNumber;
+    private EditText edtPassword;
+    private EditText edtConfPass;
+    private Button btnCancel;
+    private Button btnSignUp;
+    //
+    private Dialog dialogCreateAccount;
     //
     private Context context;
     //
@@ -85,6 +103,11 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
     private HomeActivity homeActivity;
     //
     private boolean isFirst;
+    private String username;
+    private String password;
+    private String confPassword;
+    private String fullName;
+    private String phoneNumber;
     //
     private Paint paint;
     private AlertDialog.Builder alertDialog;
@@ -108,6 +131,12 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
             user = dbContext.checkLoginSuccess();
         }
         if (isFirst && user != null) {
+            if (user.getRole() == 0) {
+                txtTitle.setText("Danh sách admin");
+            } else if (user.getRole() == 1) {
+                txtTitle.setText("Danh sách client");
+                txtDialogTitle.setText("Tạo mới tài khoản Client");
+            }
             sendForm = new XMLLoginSendForm(user.getUsername(), user.getPassword());
             viewSwitcher.setDisplayedChild(1);
             getAllAdmins(sendForm.getRequestBody());
@@ -118,6 +147,26 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
     private void init(View view) {
         homeActivity = (HomeActivity) getActivity();
         context = view.getContext();
+        //
+        dialogCreateAccount = new Dialog(context);
+        dialogCreateAccount.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialogCreateAccount.setContentView(R.layout.custom_dialog_create_account);
+        dialogCreateAccount.setCanceledOnTouchOutside(false);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialogCreateAccount.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        //
+        txtDialogTitle = (TextView) dialogCreateAccount.findViewById(R.id.txt_title);
+        edtUsername = (EditText) dialogCreateAccount.findViewById(R.id.edt_username);
+        edtFullName = (EditText) dialogCreateAccount.findViewById(R.id.edt_fullname);
+        edtPhoneNumber = (EditText) dialogCreateAccount.findViewById(R.id.edt_phone_number);
+        edtPassword = (EditText) dialogCreateAccount.findViewById(R.id.edt_password);
+        edtConfPass = (EditText) dialogCreateAccount.findViewById(R.id.edt_conf_password);
+        btnCancel = (Button) dialogCreateAccount.findViewById(R.id.btn_cancel);
+        btnSignUp = (Button) dialogCreateAccount.findViewById(R.id.btn_sign_up);
         //
         dbContext = new DBContext(context);
         xmlParser = XMLParser.getInst();
@@ -133,6 +182,8 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
         txtDate.setText(String.format("Ngày: %s", dateFormat.format(date)));
         //
         btnAddAccount.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
     }
 
     private void configRecyclerView() {
@@ -311,12 +362,80 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
                 .show();
     }
 
+    private void validateData() {
+        username = edtUsername.getText().toString();
+        fullName = edtFullName.getText().toString();
+        phoneNumber = edtPhoneNumber.getText().toString();
+        password = edtPassword.getText().toString();
+        confPassword = edtConfPass.getText().toString();
+        if (username.isEmpty() || fullName.isEmpty() || phoneNumber.isEmpty() || password.isEmpty() || confPassword.isEmpty()) {
+            homeActivity.showToast("Bạn phải điền đầy đủ thông tin đăng ký!");
+            return;
+        }
+        if (password.toCharArray().length < 6) {
+            homeActivity.showToast("Mật khẩu phải chứa ít nhất 6 ký tự!");
+            return;
+        }
+        if (!password.equals(confPassword)) {
+            homeActivity.showToast("Xác nhận mật khẩu không khớp!");
+            return;
+        }
+        XmlCreateAccountForm accountForm = new XmlCreateAccountForm(user.getUsername(), username, password, fullName, phoneNumber);
+        createAccountService(accountForm.getRequestBody());
+    }
+
+    private void createAccountService(final RequestBody requestBody) {
+        Call<ResponseBody> call = null;
+        if (user.getRole() == 0) {
+            call = getService.callCreateAccountForAdmin(requestBody);
+        } else if (user.getRole() == 1) {
+            call = getService.callCreateAccountForClient(requestBody);
+        }
+        if (call != null) {
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.code() == Constant.OK_STATUS) {
+                        try {
+                            String xml = response.body().string();
+                            ResponseModel responseModel = xmlParser.getResponseModel(xml);
+                            homeActivity.showToast(responseModel.getMessage());
+                            if (responseModel.isStatus()) {
+                                getAllAdmins(sendForm.getRequestBody());
+                            }
+                            dialogCreateAccount.dismiss();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        homeActivity.showToast("Đã xảy ra lỗi! Vui lòng thử lại sau.");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    homeActivity.showToast("Đã xảy ra lỗi! Vui lòng thử lại sau.");
+                }
+            });
+        }
+    }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.floating_button_add_account:
-                Intent dialogIntent = new Intent(context, AddAccountDialogActivity.class);
-                startActivity(dialogIntent);
+                edtUsername.setText("");
+                edtFullName.setText("");
+                edtPhoneNumber.setText("");
+                edtPassword.setText("");
+                edtConfPass.setText("");
+                dialogCreateAccount.show();
+                break;
+            case R.id.btn_cancel:
+                dialogCreateAccount.dismiss();
+                break;
+            case R.id.btn_sign_up:
+                validateData();
                 break;
             default:
                 break;
