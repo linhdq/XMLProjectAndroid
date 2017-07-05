@@ -76,4 +76,8 @@ public interface GetService {
     @POST(API.GET_ALL_DE_BY_DATE)
     @Headers({API.HEADERS})
     Call<ResponseBody> callXmlGetAllDeByDate(@Body RequestBody data);
+
+    @POST(API.DELETE_ACCOUNT_ADMIN)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callDeleteAccountAdmin(@Body RequestBody data);
 }

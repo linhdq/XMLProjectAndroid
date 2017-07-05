@@ -62,4 +62,10 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.ViewHo
             txtUsername = (TextView) itemView.findViewById(R.id.txt_username);
         }
     }
+
+    public void removeItem(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeInserted(position, list.size());
+    }
 }
