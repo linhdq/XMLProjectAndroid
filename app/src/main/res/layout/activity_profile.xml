@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/_20sdp"
+    android:paddingRight="@dimen/_20sdp"
+    android:paddingTop="@dimen/_10sdp"
+    tools:context="com.ldz.fpt.xmlprojectandroid.acitivity.ProfileActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imv_profile"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/loto_logo" />
+
+    <TextView
+        android:id="@+id/txt_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imv_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Role: Admin"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold" />
+
+    <ViewSwitcher
+        android:id="@+id/view_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_role"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_username_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Username:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_username_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@color/grey_300"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="admin"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:id="@+id/txt_fullname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_username"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="FullName:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_fullname_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/custom_edittext"
+                android:enabled="false"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="Dao Quang Linh"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:id="@+id/txt_phonenumber_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_fullname"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Phone Number:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_phonenumber_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/custom_edittext"
+                android:enabled="false"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="0976678404"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Current Password:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_current_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_username_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_username"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="New Password:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_new_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_fullname_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edt_fullname"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Confirm Password:"
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@id/txt_phonenumber_title"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+    </ViewSwitcher>
+
+
+    <ViewFlipper
+        android:id="@+id/view_fliper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_switcher"
+        android:layout_marginTop="@dimen/_15sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_update_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_login"
+                android:text="Update Profile"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+            <Button
+                android:id="@+id/btn_change_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_login"
+                android:text="Change Password"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_button_login"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <Button
+            android:id="@+id/btn_change"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_button_login"
+            android:text="Change"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+    </ViewFlipper>
+</RelativeLayout>

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none"
+    tools:context="com.ldz.fpt.xmlprojectandroid.acitivity.SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imv_logo"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/loto_logo" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Thiết lập giá"
+            android:textAllCaps="true"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_de_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Đề"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_de_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/txt_de_price"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_de_price"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_ba_cang_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Ba càng"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_ba_cang_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_ba_cang_title"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_ba_cang_price"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_lo_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Lô"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nhận: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_price_nhan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_price_tra"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_lo_xien_2_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Lô xiên 2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_2_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nhận: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_2_price_nhan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_2_price_tra"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_lo_xien_3_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Lô xiên 3"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_3_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nhận: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_price_nhan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_price_tra"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_lo_xien_4_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/tint_color"
+            android:gravity="center"
+            android:text="Lô xiên 4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_4_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Nhận: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_price_nhan"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Trả: "
+                android:textColor="@color/tint_color"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_price_tra"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_weight="3"
+                android:background="@drawable/custom_edittext"
+                android:gravity="center"
+                android:inputType="number"
+                android:textColor="@color/grey_800"
+                android:textSize="@dimen/_13sdp" />
+        </LinearLayout>
+
+        <ViewSwitcher
+            android:id="@id/view_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_10sdp"
+            >
+
+            <Button
+                android:id="@+id/btn_change"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/custom_button_login"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:background="@drawable/custom_button_login"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                />
+        </ViewSwitcher>
+    </LinearLayout>
+</ScrollView>
