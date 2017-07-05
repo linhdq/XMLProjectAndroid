@@ -80,4 +80,8 @@ public interface GetService {
     @POST(API.DELETE_ACCOUNT_ADMIN)
     @Headers({API.HEADERS})
     Call<ResponseBody> callDeleteAccountAdmin(@Body RequestBody data);
+
+    @POST(API.DELETE_ACCOUNT_CLIENT)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callDeleteAccountClient(@Body RequestBody data);
 }

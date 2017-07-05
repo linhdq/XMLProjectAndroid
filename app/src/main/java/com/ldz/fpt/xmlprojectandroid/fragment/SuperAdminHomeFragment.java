@@ -125,7 +125,12 @@ public class SuperAdminHomeFragment extends Fragment {
     }
 
     private void getAllAdmins(RequestBody data) {
-        Call<ResponseBody> call = getService.callXmlGetAllAdmins(data);
+        Call<ResponseBody> call;
+        if (user.getRole() == Constant.SUPER_ADMIN) {
+            call = getService.callXmlGetAllAdmins(data);
+        } else {
+            call = getService.callXmlGetAllClients(data);
+        }
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -217,7 +222,12 @@ public class SuperAdminHomeFragment extends Fragment {
     }
 
     private void deleteAccountService(RequestBody requestBody, final int position) {
-        Call<ResponseBody> call = getService.callDeleteAccountAdmin(requestBody);
+        Call<ResponseBody> call;
+        if (user.getRole() == Constant.SUPER_ADMIN) {
+            call = getService.callDeleteAccountAdmin(requestBody);
+        } else {
+            call = getService.callDeleteAccountClient(requestBody);
+        }
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

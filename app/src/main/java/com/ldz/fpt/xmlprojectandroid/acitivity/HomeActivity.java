@@ -159,6 +159,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_report, "Thống kê"));
         if (user.getRole() == 1) {
             drawerItemModelList.add(new DrawerItemModel(R.mipmap.ic_setting, "Thiết lập"));
+            drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_perm_contact_calendar_black_48dp, "Danh sách"));
         }
         drawerItemModelList.add(new DrawerItemModel(R.drawable.ic_signout, "Đăng xuất"));
         listDrawerApdapter = new ListDrawerApdapter(this, drawerItemModelList);
@@ -196,6 +197,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         break;
                     case 2:
+                        if (user.getRole() == 1) {
+                            openFragment(superAdminHomeFragment, false, false);
+                            drawerLayout.closeDrawers();
+                        } else {
+                            dbContext.deleteUserModel();
+                            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                        break;
+                    case 3:
                         dbContext.deleteUserModel();
                         Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                         startActivity(intent);
