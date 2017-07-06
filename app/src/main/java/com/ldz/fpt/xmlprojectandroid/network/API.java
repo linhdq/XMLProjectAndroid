@@ -6,7 +6,7 @@ package com.ldz.fpt.xmlprojectandroid.network;
 
 public class API {
     public static final String HEADERS = "Content-Type: application/xml; charset=UTF-8";
-    public static final String ROOT_API = "http://10.20.22.117:8080/WSDemo/api/";
+    public static final String ROOT_API = "http://10.20.22.104:8080/WSDemo/api/";
     public static final String LOGIN = "login";
     public static final String GET_ALL_CLIENTS = "get/all/clients";
     public static final String GET_ALL_ADMINS = "get/all/admins";
@@ -29,4 +29,5 @@ public class API {
     public static final String DELETE_ACCOUNT_CLIENT = "delete/client";
     public static final String GET_PRICE = "get/price";
     public static final String UPDATE_PRICE = "update/price";
+    public static final String UPDATE_DE = "update/de";
 }

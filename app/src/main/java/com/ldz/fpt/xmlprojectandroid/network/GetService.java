@@ -100,4 +100,8 @@ public interface GetService {
     @POST(API.UPDATE_PRICE)
     @Headers({API.HEADERS})
     Call<ResponseBody> callUpdatePrice (@Body RequestBody data);
+
+    @POST(API.UPDATE_DE)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callUpdateDe (@Body RequestBody data);
 }

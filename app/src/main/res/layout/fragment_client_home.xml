@@ -70,7 +70,8 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,7 +87,8 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
         </LinearLayout>
 
         <Button
@@ -152,7 +154,8 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -168,7 +171,8 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
         </LinearLayout>
 
         <Button
@@ -234,7 +238,8 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -250,7 +255,8 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
         </LinearLayout>
 
         <Button
@@ -316,7 +322,10 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -331,7 +340,8 @@
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -339,6 +349,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_below="@id/layout_lo_xien_2"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/layout_lo_xien_2_point"
+            android:gravity="center"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -354,7 +367,8 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -362,7 +376,7 @@
             android:id="@+id/btn_confirm_lo_xien_2"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_below="@id/layout_lo_xien_2"
+            android:layout_below="@id/layout_lo_xien_2_point"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/custom_button_login"
@@ -412,17 +426,62 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Số: "
+                android:text="Số 1: "
                 android:textColor="@color/grey_800"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edt_lo_xien_3_number"
-                android:layout_width="@dimen/_70sdp"
+                android:id="@+id/edt_lo_xien_3_number_1"
+                android:layout_width="@dimen/_50sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
+                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 2: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_number_2"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 3: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_number_3"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_3"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/layout_lo_xien_3_point"
+            android:gravity="center"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -437,14 +496,16 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
+
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_confirm_lo_xien_3"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_below="@id/layout_lo_xien_3"
+            android:layout_below="@id/layout_lo_xien_3_point"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/custom_button_login"
@@ -494,17 +555,78 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Số: "
+                android:text="Số 1: "
                 android:textColor="@color/grey_800"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edt_lo_xien_4_number"
-                android:layout_width="@dimen/_70sdp"
+                android:id="@+id/edt_lo_xien_4_number_1"
+                android:layout_width="@dimen/_30sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
+                />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 2: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_number_2"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 3: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_number_3"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 4: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_number_4"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_4"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/layout_lo_xien_4_point"
+            android:gravity="center"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -519,14 +641,16 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="match_parent"
                 android:background="@drawable/custom_edittext"
-                android:inputType="number" />
+                android:inputType="number"
+                android:gravity="center"/>
+
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_confirm_lo_xien_4"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_below="@id/layout_lo_xien_4"
+            android:layout_below="@id/layout_lo_xien_4_point"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/custom_button_login"

@@ -24,11 +24,14 @@ import com.ldz.fpt.xmlprojectandroid.database.DBContext;
 import com.ldz.fpt.xmlprojectandroid.fragment.AdminHomeFragment;
 import com.ldz.fpt.xmlprojectandroid.fragment.ClientHomeFragment;
 import com.ldz.fpt.xmlprojectandroid.fragment.SuperAdminHomeFragment;
+import com.ldz.fpt.xmlprojectandroid.model.DeModel;
 import com.ldz.fpt.xmlprojectandroid.model.DrawerItemModel;
 import com.ldz.fpt.xmlprojectandroid.model.Price;
+import com.ldz.fpt.xmlprojectandroid.model.ResponseModel;
 import com.ldz.fpt.xmlprojectandroid.model.User;
 import com.ldz.fpt.xmlprojectandroid.network.GetService;
 import com.ldz.fpt.xmlprojectandroid.network.ServiceFactory;
+import com.ldz.fpt.xmlprojectandroid.network.model.XmlDeUpdate;
 import com.ldz.fpt.xmlprojectandroid.network.model.XmlRequestForm;
 import com.ldz.fpt.xmlprojectandroid.util.Constant;
 import com.ldz.fpt.xmlprojectandroid.util.MyFont;
@@ -157,6 +160,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
             if (user.getRole() != 0) {
                 getPrice(requestForm.getRequestBody());
+            }
+            if (user.getRole() == 2) {
+                List<DeModel> listDe = dbContext.getAllDeModelByDate(formatDate.format(date));
+                XmlDeUpdate xmlDeUpdate = new XmlDeUpdate(listDe);
+                updateDeData(xmlDeUpdate.getRequestBody());
             }
             return true;
         }
@@ -327,6 +335,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             preferenceUtil.setLoXien3PriceTra(price.getLoXien3TraPrice());
                             preferenceUtil.setLoXien4PriceNhan(price.getLoXien4NhanPrice());
                             preferenceUtil.setLoXien4PriceTra(price.getLoXien4TraPrice());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    showToast("Lỗi kết nối!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showToast("Lỗi kết nối!");
+            }
+        });
+    }
+
+    private void updateDeData(RequestBody data) {
+        Call<ResponseBody> call = getService.callUpdateDe(data);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == Constant.OK_STATUS) {
+                    try {
+                        String xml = response.body().string();
+                        ResponseModel responseModel = xmlParser.getResponseModel(xml);
+                        if (responseModel != null) {
+                            showToast(responseModel.getMessage());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

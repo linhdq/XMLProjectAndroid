@@ -259,6 +259,35 @@ public class DBContext extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public int updateDeModel(DeModel model) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(USERNAME, model.getUsername());
+        values.put(NUMBER, model.getNumber());
+        values.put(PRICE, model.getPrice());
+        values.put(DATE, model.getDate());
+
+        // updating row
+        return db.update(TABLE_DE, values, NUMBER + " = ? AND " + DATE + " = ?",
+                new String[]{String.valueOf(model.getNumber()), model.getDate()});
+    }
+
+    public DeModel getDeModelByNumberAndDate(int number, String date) {
+        DeModel deModel = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlQuery = "Select * from " + TABLE_DE + " where " + NUMBER + " = " + number + " AND " + DATE + " = '" + date + "'";
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            deModel = new DeModel();
+            deModel.setUsername(cursor.getString(0));
+            deModel.setNumber(cursor.getInt(1));
+            deModel.setPrice(cursor.getInt(2));
+            deModel.setDate(cursor.getString(3));
+        }
+        return deModel;
+    }
+
     public List<DeModel> getAllDeModel() {
         List<DeModel> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
