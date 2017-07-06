@@ -1,6 +1,541 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@color/amber_300"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ngày: 06/07/2017"
+            android:textColor="@color/grey_800"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_de"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/txt_date"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Đề"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_de_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_de"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_de"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_de_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_de_number"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng tiền: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_de_price"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_de"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_de"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/txt_ba_cang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/btn_confirm_de"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Ba Càng"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_ba_cang_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_ba_cang"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_ba_cang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_ba_cang_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_ba_cang_number"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng tiền: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_ba_cang_price"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_ba_cang"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_ba_cang"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/txt_lo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/btn_confirm_ba_cang"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Lô"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_lo_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_lo"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_lo_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_number"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng điểm: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_point"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_lo"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/btn_confirm_lo"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Lô Xiên 2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_2_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_lo_xien_2"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_lo_xien_2_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 1: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_2_number_1"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số 2: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_2_number_2"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_2"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng điểm: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_2_point"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_lo_xien_2"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/btn_confirm_lo_xien_2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Lô Xiên 3"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_3_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_lo_xien_3"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_lo_xien_3_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_number"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng điểm: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_3_point"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_lo_xien_3"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_below="@id/btn_confirm_lo_xien_3"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/grey_700"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Ghi Lô Xiên 4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_lo_xien_4_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_lo_xien_4"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="Trúng giải: 1 ăn 80"
+            android:textColor="@color/tint_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/layout_lo_xien_4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/txt_lo_xien_4_price"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Số: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_number"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="Tổng điểm: "
+                android:textColor="@color/grey_800"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_lo_xien_4_point"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_edittext"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_lo_xien_4"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@id/layout_lo_xien_4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/custom_button_login"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            />
+    </RelativeLayout>
+
+</ScrollView>

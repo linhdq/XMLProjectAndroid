@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             requestForm = new XmlRequestForm(user.getUsername(), formatDate.format(date));
-            if(user.getRole()!=0) {
+            if (user.getRole() != 0) {
                 getPrice(requestForm.getRequestBody());
             }
             isFirst = false;
@@ -155,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             } else if (user.getRole() == 0) {
                 superAdminHomeFragment.refreshData();
             }
-            if(user.getRole()!=0) {
+            if (user.getRole() != 0) {
                 getPrice(requestForm.getRequestBody());
             }
             return true;
@@ -200,7 +200,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //
         isFirst = true;
         //
-        date=new Date();
+        date = new Date();
     }
 
     private void configFont() {
@@ -316,16 +316,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         String xml = response.body().string();
                         Price price = xmlParser.getPriceModel(xml);
-                        preferenceUtil.setDePrice(price.getDePrice());
-                        preferenceUtil.setBaCangPrice(price.getBaCangPrice());
-                        preferenceUtil.setLoPriceNhan(price.getLoNhanPrice());
-                        preferenceUtil.setLoPriceTra(price.getLoTraPrice());
-                        preferenceUtil.setLoXien2PriceNhan(price.getLoXien2NhanPrice());
-                        preferenceUtil.setLoXien2PriceTra(price.getLoXien2TraPrice());
-                        preferenceUtil.setLoXien3PriceNhan(price.getLoXien3NhanPrice());
-                        preferenceUtil.setLoXien3PriceTra(price.getLoXien3TraPrice());
-                        preferenceUtil.setLoXien4PriceNhan(price.getLoXien4NhanPrice());
-                        preferenceUtil.setLoXien4PriceTra(price.getLoXien4TraPrice());
+                        if (price != null) {
+                            preferenceUtil.setDePrice(price.getDePrice());
+                            preferenceUtil.setBaCangPrice(price.getBaCangPrice());
+                            preferenceUtil.setLoPriceNhan(price.getLoNhanPrice());
+                            preferenceUtil.setLoPriceTra(price.getLoTraPrice());
+                            preferenceUtil.setLoXien2PriceNhan(price.getLoXien2NhanPrice());
+                            preferenceUtil.setLoXien2PriceTra(price.getLoXien2TraPrice());
+                            preferenceUtil.setLoXien3PriceNhan(price.getLoXien3NhanPrice());
+                            preferenceUtil.setLoXien3PriceTra(price.getLoXien3TraPrice());
+                            preferenceUtil.setLoXien4PriceNhan(price.getLoXien4NhanPrice());
+                            preferenceUtil.setLoXien4PriceTra(price.getLoXien4TraPrice());
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
