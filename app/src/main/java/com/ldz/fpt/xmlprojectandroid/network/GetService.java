@@ -92,4 +92,12 @@ public interface GetService {
     @POST(API.CREATE_ACCOUNT_FOR_CLIENT)
     @Headers({API.HEADERS})
     Call<ResponseBody> callCreateAccountForClient (@Body RequestBody data);
+
+    @POST(API.GET_PRICE)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callGetPrice (@Body RequestBody data);
+
+    @POST(API.UPDATE_PRICE)
+    @Headers({API.HEADERS})
+    Call<ResponseBody> callUpdatePrice (@Body RequestBody data);
 }

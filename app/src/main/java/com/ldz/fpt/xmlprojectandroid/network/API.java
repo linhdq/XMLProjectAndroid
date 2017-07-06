@@ -27,4 +27,6 @@ public class API {
     public static final String GET_ALL_LO_XIEN_4_BY_DATE = "get/lo_xien_4/by_date";
     public static final String DELETE_ACCOUNT_ADMIN = "delete/admin";
     public static final String DELETE_ACCOUNT_CLIENT = "delete/client";
+    public static final String GET_PRICE = "get/price";
+    public static final String UPDATE_PRICE = "update/price";
 }

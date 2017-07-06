@@ -8,6 +8,7 @@ import com.ldz.fpt.xmlprojectandroid.model.LoModel;
 import com.ldz.fpt.xmlprojectandroid.model.LoXien2Model;
 import com.ldz.fpt.xmlprojectandroid.model.LoXien3Model;
 import com.ldz.fpt.xmlprojectandroid.model.LoXien4Model;
+import com.ldz.fpt.xmlprojectandroid.model.Price;
 import com.ldz.fpt.xmlprojectandroid.model.ResponseModel;
 import com.ldz.fpt.xmlprojectandroid.model.User;
 
@@ -269,6 +270,26 @@ public class XMLParser {
             String message = getValue(element, MESSAGE);
             boolean status = getValue(element, STATUS).equalsIgnoreCase("true") ? true : false;
             model = new ResponseModel(message, status);
+        }
+        return model;
+    }
+
+    public Price getPriceModel(String xml) {
+        Price model = null;
+        Document doc = getDomElement(xml);
+        Element element = doc.getDocumentElement();
+        if (element != null) {
+            int dePrice = Integer.parseInt(getValue(element, "dePrice"));
+            int baCangPrice = Integer.parseInt(getValue(element, "baCangPrice"));
+            int loNhanPrice = Integer.parseInt(getValue(element, "loNhanPrice"));
+            int loTraPrice = Integer.parseInt(getValue(element, "loTraPrice"));
+            int loXien2NhanPrice = Integer.parseInt(getValue(element, "loXien2NhanPrice"));
+            int loXien2TraPrice = Integer.parseInt(getValue(element, "loXien2TraPrice"));
+            int loXien3NhanPrice = Integer.parseInt(getValue(element, "loXien3NhanPrice"));
+            int loXien3TraPrice = Integer.parseInt(getValue(element, "loXien3TraPrice"));
+            int loXien4NhanPrice = Integer.parseInt(getValue(element, "loXien4NhanPrice"));
+            int loXien4TraPrice = Integer.parseInt(getValue(element, "loXien4TraPrice"));
+            model = new Price(dePrice, baCangPrice, loNhanPrice, loTraPrice, loXien2NhanPrice, loXien2TraPrice, loXien3NhanPrice, loXien3TraPrice, loXien4NhanPrice, loXien4TraPrice);
         }
         return model;
     }

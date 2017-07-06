@@ -195,8 +195,10 @@ public class SuperAdminHomeFragment extends Fragment implements View.OnClickList
     }
 
     public void refreshData() {
-        viewSwitcher.setDisplayedChild(1);
-        getAllAdmins(sendForm.getRequestBody());
+        if(viewSwitcher!=null) {
+            viewSwitcher.setDisplayedChild(1);
+            getAllAdmins(sendForm.getRequestBody());
+        }
     }
 
     private void getAllAdmins(RequestBody data) {

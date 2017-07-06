@@ -25,10 +25,17 @@ import com.ldz.fpt.xmlprojectandroid.fragment.AdminHomeFragment;
 import com.ldz.fpt.xmlprojectandroid.fragment.ClientHomeFragment;
 import com.ldz.fpt.xmlprojectandroid.fragment.SuperAdminHomeFragment;
 import com.ldz.fpt.xmlprojectandroid.model.DrawerItemModel;
+import com.ldz.fpt.xmlprojectandroid.model.Price;
 import com.ldz.fpt.xmlprojectandroid.model.User;
+import com.ldz.fpt.xmlprojectandroid.network.GetService;
+import com.ldz.fpt.xmlprojectandroid.network.ServiceFactory;
+import com.ldz.fpt.xmlprojectandroid.network.model.XmlRequestForm;
+import com.ldz.fpt.xmlprojectandroid.util.Constant;
 import com.ldz.fpt.xmlprojectandroid.util.MyFont;
 import com.ldz.fpt.xmlprojectandroid.util.PreferenceUtil;
+import com.ldz.fpt.xmlprojectandroid.xml_parser.XMLParser;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +43,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = HomeActivity.class.getSimpleName();
@@ -51,6 +63,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DBContext dbContext;
     //
     private PreferenceUtil preferenceUtil;
+    private GetService getService;
+    private XMLParser xmlParser;
     //
     private MyFont myFont;
     private User user;
@@ -67,6 +81,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     //
     private final SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
     private Date date;
+    //
+    private XmlRequestForm requestForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +116,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (user.getRole() == 2) {
                     openFragment(clientHomeFragment, false, false);
                 }
+            }
+            requestForm = new XmlRequestForm(user.getUsername(), formatDate.format(date));
+            if(user.getRole()!=0) {
+                getPrice(requestForm.getRequestBody());
             }
             isFirst = false;
         }
@@ -135,6 +155,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             } else if (user.getRole() == 0) {
                 superAdminHomeFragment.refreshData();
             }
+            if(user.getRole()!=0) {
+                getPrice(requestForm.getRequestBody());
+            }
             return true;
         }
 
@@ -157,6 +180,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         //
         myFont = MyFont.getInst(this);
         preferenceUtil = PreferenceUtil.getInst(this);
+        xmlParser = XMLParser.getInst();
+        //network
+        getService = ServiceFactory.getInstance().createService(GetService.class);
         //set font
         configFont();
         //
@@ -173,6 +199,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         listViewDrawer.setAdapter(listDrawerApdapter);
         //
         isFirst = true;
+        //
+        date=new Date();
     }
 
     private void configFont() {
@@ -186,11 +214,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        if(user.getRole()!=0) {
+                        if (user.getRole() != 0) {
                             Intent intentReport = new Intent(HomeActivity.this, ReportActivity.class);
                             startActivity(intentReport);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        }else{
+                        } else {
                             dbContext.deleteUserModel();
                             Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                             startActivity(intent);
@@ -277,5 +305,39 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         super.onBackPressed();
 
+    }
+
+    private void getPrice(RequestBody data) {
+        Call<ResponseBody> call = getService.callGetPrice(data);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == Constant.OK_STATUS) {
+                    try {
+                        String xml = response.body().string();
+                        Price price = xmlParser.getPriceModel(xml);
+                        preferenceUtil.setDePrice(price.getDePrice());
+                        preferenceUtil.setBaCangPrice(price.getBaCangPrice());
+                        preferenceUtil.setLoPriceNhan(price.getLoNhanPrice());
+                        preferenceUtil.setLoPriceTra(price.getLoTraPrice());
+                        preferenceUtil.setLoXien2PriceNhan(price.getLoXien2NhanPrice());
+                        preferenceUtil.setLoXien2PriceTra(price.getLoXien2TraPrice());
+                        preferenceUtil.setLoXien3PriceNhan(price.getLoXien3NhanPrice());
+                        preferenceUtil.setLoXien3PriceTra(price.getLoXien3TraPrice());
+                        preferenceUtil.setLoXien4PriceNhan(price.getLoXien4NhanPrice());
+                        preferenceUtil.setLoXien4PriceTra(price.getLoXien4TraPrice());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    showToast("Lỗi kết nối!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showToast("Lỗi kết nối!");
+            }
+        });
     }
 }

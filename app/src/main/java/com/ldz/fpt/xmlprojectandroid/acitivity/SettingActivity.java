@@ -6,13 +6,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.ldz.fpt.xmlprojectandroid.R;
+import com.ldz.fpt.xmlprojectandroid.database.DBContext;
+import com.ldz.fpt.xmlprojectandroid.model.Price;
+import com.ldz.fpt.xmlprojectandroid.model.ResponseModel;
+import com.ldz.fpt.xmlprojectandroid.model.User;
+import com.ldz.fpt.xmlprojectandroid.network.GetService;
+import com.ldz.fpt.xmlprojectandroid.network.ServiceFactory;
+import com.ldz.fpt.xmlprojectandroid.util.Constant;
 import com.ldz.fpt.xmlprojectandroid.util.PreferenceUtil;
+import com.ldz.fpt.xmlprojectandroid.xml_parser.XMLParser;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = SettingActivity.class.getSimpleName();
@@ -43,8 +59,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     protected Button btnChange;
     @BindView(R.id.view_switcher)
     protected ViewSwitcher viewSwitcher;
+    private Toast toast;
     //
+    private DBContext dbContext;
     private PreferenceUtil preferenceUtil;
+    private GetService getService;
+    //
+    private User user;
     //
     private int dePrice = 0;
     private int bacangPrice = 0;
@@ -86,8 +107,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void init() {
+        dbContext = new DBContext(this);
         preferenceUtil = PreferenceUtil.getInst(this);
         changeStateEditor(false);
+        //network
+        getService = ServiceFactory.getInstance().createService(GetService.class);
         //
         edtDePrice.setText(String.valueOf(preferenceUtil.getDePrice()));
         edtBaCangPrice.setText(String.valueOf(preferenceUtil.getBaCangPrice()));
@@ -99,6 +123,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         edtLoXien3PriceTra.setText(String.valueOf(preferenceUtil.getLoXien3PriceTra()));
         edtLoXien4PriceNhan.setText(String.valueOf(preferenceUtil.getLoXien4PriceNhan()));
         edtLoXien4PriceTra.setText(String.valueOf(preferenceUtil.getLoXien4PriceTra()));
+        //
+        user = dbContext.checkLoginSuccess();
     }
 
     private void addListener() {
@@ -197,12 +223,50 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 preferenceUtil.setLoXien3PriceTra(loxien3TraPrice);
                 preferenceUtil.setLoXien4PriceNhan(loxien4NhanPrice);
                 preferenceUtil.setLoXien4PriceTra(loxien4TraPrice);
-
+                Price price = new Price(dePrice, bacangPrice, loNhanPrice, loTraPrice, loxien2NhanPrice, loxien2TraPrice, loxien3NhanPrice, loxien3TraPrice, loxien4NhanPrice, loxien4TraPrice);
+                price.setUsername(user.getUsername());
+                updatePrice(price.getRequestBody());
                 viewSwitcher.setDisplayedChild(0);
                 changeStateEditor(false);
                 break;
             default:
                 break;
         }
+    }
+
+    public void showToast(String mess) {
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(this, mess, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    private void updatePrice(RequestBody data) {
+        Call<ResponseBody> call = getService.callUpdatePrice(data);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == Constant.OK_STATUS) {
+                    try {
+                        String xml = response.body().string();
+                        ResponseModel responseModel = XMLParser.getInst().getResponseModel(xml);
+                        if (responseModel != null) {
+                            showToast(responseModel.getMessage());
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    showToast("Lỗi kết nối!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showToast("Lỗi kết nối!");
+            }
+        });
     }
 }
